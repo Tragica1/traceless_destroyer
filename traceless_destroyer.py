@@ -2,10 +2,18 @@ import os
 
 
 class Destroyer:
-    def fill(self, filename, char, count):
-        with open(filename, 'a+') as myfile:
+    def fill(self, path, char, count):
+        with open(path, 'a+') as myfile:
             myfile.write(char * count)
-        f = open(filename)
-        text = f.read()
-        f.close()
+        with open(path, 'r') as myfile:
+            text = myfile.read()
         return text
+
+    def destroy(self, path):
+        if os.path.isfile(path):
+            os.remove(path)
+        elif os.path.isdir(path):
+            os.rmdir(path)
+        else:
+            return 'File does not exist!'
+        return 'File/directory has been destroyed!'
